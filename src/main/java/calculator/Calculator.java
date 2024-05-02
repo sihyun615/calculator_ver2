@@ -6,14 +6,9 @@ import java.util.ArrayList;
 public abstract class Calculator<T> {
     /* 연산 결과를 저장하는 컬렉션 타입 필드 선언*/
     // ArrayList : 동적 배열이라 크기를 지정하지 않아도 됨
-    // protected : 같은 패키지 내에서, 다른 패키지의 자손 클래스에서 접근이 가능 (상속관계에 많이 사용)
-    protected ArrayList<T> saveResults;
+    // private : Calculator 클래스 내부에서만 접근 가능
+    private ArrayList<T> saveResults = new ArrayList<>();
 
-
-    // 생성자
-    public Calculator(){
-        this.saveResults = new ArrayList<>();
-    }
 
     // getter
     public ArrayList<T> getResults(){

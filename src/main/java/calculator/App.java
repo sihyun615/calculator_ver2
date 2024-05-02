@@ -10,9 +10,7 @@ public class App {
         // Calculator클래스를 상속받은 두 클래스의 각각의 인스턴스 생성
 
         //ArithmeticCalculator 제네릭 클래스 타입 설정
-        ArithmeticCalculator<Double> arithmeticCal = new ArithmeticCalculator<>(
-                new AddOperator<>(), new SubtractOperator<>(), new MultiplyOperator<>(),
-                new DivideOperator<>(), new ModOperator<>());
+        ArithmeticCalculator<Double> arithmeticCal = new ArithmeticCalculator<>();
         CircleCalculator circleCal = new CircleCalculator();
 
         Scanner sc = new Scanner(System.in);
@@ -50,7 +48,9 @@ public class App {
 
                         // ArithmeticCalculator 클래스의 calculate 메서드 호출
                         try {
-                            System.out.println("결과 : " + arithmeticCal.calculate(operator, num1, num2));
+                            double result = arithmeticCal.calculate(operator, num1, num2);
+                            System.out.println("결과 : " + result);
+                            arithmeticCal.getResults().add(result);  //연산결과저장배열에 해당 결과 저장
                         } catch (Exception e) {  //예외처리
                             System.out.println("오류: " + e.getMessage());
                         }

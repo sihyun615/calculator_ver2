@@ -7,13 +7,18 @@ public enum OperatorType {
     DIVIDE('/'),
     MOD('%');
 
-    private final char operator;  //필드
+    private final char symbol;  //필드
 
-    OperatorType(char operator) {  //생성자
-        this.operator = operator;
+    OperatorType(char symbol) {  //생성자
+        this.symbol = symbol;
     }
 
-    public char getOperator() {  //getter
-        return operator;
+    public static OperatorType fromOperator(char operator) {
+        for (OperatorType type : OperatorType.values()) {
+            if(type.symbol == operator) {
+                return type;
+            }
+        }
+        throw new UnsupportedOperationException("올바른 연산자값이 입력되지 않았습니다.");
     }
 }

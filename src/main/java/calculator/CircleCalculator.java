@@ -15,7 +15,7 @@ public class CircleCalculator extends Calculator {  // Calculator클래스를 �
         }
 
         double area = PI * radius * radius;  //원의 넓이 구함
-        saveResults.add(area);
+        getResults().add(area);
         return area;
     }
 
