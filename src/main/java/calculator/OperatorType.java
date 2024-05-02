@@ -19,6 +19,6 @@ public enum OperatorType {
                 return type;
             }
         }
-        throw new UnsupportedOperationException("올바른 연산자값이 입력되지 않았습니다.");
+        throw new UnsupportedOperationException("올바른 연산자값의 입력이 아닙니다.");
     }
 }

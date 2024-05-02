@@ -16,7 +16,7 @@ public class CircleCalculator extends Calculator {  // Calculator클래스를 �
     //원의 넓이를 구하는 메서드
     public double calculateCircleArea (double radius) throws Exception {
         if (radius < 0){
-            throw new BadInputException("원지름값");  //예외처리
+            throw new BadInputException("음수가 아닌 원지름값");  //예외처리
         }
 
         double area = PI * radius * radius;  //원의 넓이 구함

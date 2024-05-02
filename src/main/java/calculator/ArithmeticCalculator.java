@@ -46,8 +46,14 @@ public class ArithmeticCalculator<T extends Number> extends Calculator {  // Cal
     // 저장된 연산결과들 중 현재 입력된 값보다 큰 값들 출력 메서드
     public void inquiryGreaterResults(double num) {
         // Stream API 활용
-        super.getResults().stream()
+        List<Double> greaterResults = getResults().stream()
                 .filter(result -> result > num)  //람다 활용
-                .forEach(result -> System.out.println(result));  //큰 결과들 출력
+                .toList();
+
+        if (!greaterResults.isEmpty()) {  //저장된 연산결과들 중 현재 연산값보다 큰 값이 존재하면 출력
+            greaterResults.forEach(System.out::println);  // Stream API 활용
+        } else {
+            System.out.println("현재 연산결과값보다 큰 값이 없습니다.");
+        }
     }
 }
