@@ -3,26 +3,28 @@ package calculator;
 import java.util.List;
 
 //제네릭 클래스로 선언하여 다양한 변수 타입으로 사용가능
-public class ArithmeticCalculator<T extends Number> extends Calculator<T> {  // Calculator클래스를 상속받음
+public class ArithmeticCalculator<T extends Number> extends Calculator {  // Calculator클래스를 상속받음
 
-    private T result;
+    public final Class<T> type;  //클래스를 통해 타입 파악위함
 
+    public ArithmeticCalculator(List<Double> saveResults, Class<T> type) {
+        super(saveResults);
+        this.type = type;  //타입파악
+    }
 
-    /* 나눗셈에서 분모에 0이 들어오거나, 연산자 기호가 잘못 들어온 경우
-      적합한 Exception 클래스를 생성하여 throw (매개변수로 해당 오류 내용을 전달)*/
-    public T calculate(char operator, T num1, T num2) throws Exception {
+    public T calculate(char operator, T num1, T num2){
 
         return checkOperator(operator).operate(num1,num2);
     }
 
-    private Operator<T> checkOperator (char operator) {
+    private Operator<T> checkOperator (char operator) {  //Operator타입을 파악하여 해당하는 type의 객체 생성
         OperatorType operatorType = OperatorType.fromOperator(operator);
-        return switch (operatorType){
-            case ADD -> new AddOperator<T>();
-            case SUBTRACT -> new SubtractOperator();
-            case MULTIPLY -> new MultiplyOperator();
-            case DIVIDE -> new DivideOperator();
-            case MOD -> new ModOperator();
+        return switch (operatorType){  //향상된 switch문
+            case ADD -> new AddOperator(type);
+            case SUBTRACT -> new SubtractOperator(type);
+            case MULTIPLY -> new MultiplyOperator(type);
+            case DIVIDE -> new DivideOperator(type);
+            case MOD -> new ModOperator(type);
         };
     }
 
@@ -41,23 +43,11 @@ public class ArithmeticCalculator<T extends Number> extends Calculator<T> {  // 
 
 
 
-    // 저장된 연산결과들 중 현재 연산값보다 큰 값들 출력 메서드
-    public void inquiryGreaterResults() {
+    // 저장된 연산결과들 중 현재 입력된 값보다 큰 값들 출력 메서드
+    public void inquiryGreaterResults(double num) {
         // Stream API 활용
-        List<T> greaterResults = getResults().stream()
-                .filter((saveResults) -> compare(saveResults,result) > 0)  //람다 활용
-                .toList();
-
-        if (!greaterResults.isEmpty()) {  //저장된 연산결과들 중 현재 연산값보다 큰 값이 존재하면 출력
-            greaterResults.forEach(System.out::println);  // Stream API 활용
-        } else {
-                System.out.println("현재 연산결과값보다 큰 값이 없습니다.");
-        }
+        super.getResults().stream()
+                .filter(result -> result > num)  //람다 활용
+                .forEach(result -> System.out.println(result));  //큰 결과들 출력
     }
-
-    private int compare(T a, T b) {
-        //a가 b보다 작으면 음수, 같으면 0, 크면 양수를 반환
-        return Double.compare(a.doubleValue(), b.doubleValue());
-    }
-
 }

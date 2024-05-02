@@ -13,7 +13,7 @@ public enum OperatorType {
         this.symbol = symbol;
     }
 
-    public static OperatorType fromOperator(char operator) {
+    public static OperatorType fromOperator(char operator) {  //전달받은 연산자기호에 따른 enum타입 반환
         for (OperatorType type : OperatorType.values()) {
             if(type.symbol == operator) {
                 return type;

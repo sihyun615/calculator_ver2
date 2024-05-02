@@ -1,5 +1,6 @@
 package calculator;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -10,8 +11,8 @@ public class App {
         // Calculator클래스를 상속받은 두 클래스의 각각의 인스턴스 생성
 
         //ArithmeticCalculator 제네릭 클래스 타입 설정
-        ArithmeticCalculator<Double> arithmeticCal = new ArithmeticCalculator<>();
-        CircleCalculator circleCal = new CircleCalculator();
+        ArithmeticCalculator<Double> arithmeticCal = new ArithmeticCalculator<>(new ArrayList<>(), Double.class);
+        CircleCalculator circleCal = new CircleCalculator(new ArrayList<>());
 
         Scanner sc = new Scanner(System.in);
 
@@ -68,10 +69,12 @@ public class App {
                             arithmeticCal.inquiryResults();  //Calculator 클래스의 inquiryResults메서드 상속받아 사용
                         }
 
-                        System.out.println("\n저장된 연산결과들 중 현재 결과값보다 큰 값을 조회하시겠습니까? (inquiry 입력 시 조회)");
-                        if (Objects.equals(sc.next(), "inquiry")) {  //입력받은 값이 "inquiry"이면
-                            System.out.println("저장된 연산결과들 중 현재 결과값보다 큰 값들을 조회합니다.");
-                            arithmeticCal.inquiryGreaterResults();  //ArithmeticCalculator 클래스의 inquiryGreaterResults메서드 사용
+                        System.out.println("\n저장된 연산결과들 중 입력한 값보다 큰 값을 조회하시겠습니까? (lambda 입력 시 조회)");
+                        if (Objects.equals(sc.next(), "lambda")) {  //입력받은 값이 "lambda"이면
+                            System.out.print("기준 값을 입력하세요 : ");
+                            double num = sc.nextDouble();
+                            System.out.println("저장된 연산결과들 중 입력값보다 큰 값들을 조회합니다.");
+                            arithmeticCal.inquiryGreaterResults(num);  //ArithmeticCalculator 클래스의 inquiryGreaterResults메서드 사용
                         }
 
                         break;  //내부 while문에서 빠져나감
